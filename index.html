@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador com Anúncios Laterais</title>
+    <style>
+        /* Configurações globais do fundo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* 🎯 ÁREA CENTRAL (Onde fica o seu contador) */
+        .conteudo-principal {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px 20px;
+            background: white;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        #numero {
+            font-size: 80px;
+            margin: 20px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 🏢 CONFIGURAÇÃO DOS ANÚNCIOS LATERAIS FIXOS */
+        .anuncio-lateral {
+            position: fixed;
+            top: 100px; 
+            width: 160px; 
+            height: 600px; 
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .esquerda { left: 20px; }
+        .direita { right: 20px; }
+
+        /* Garante que imagens e embeds preencham o banner lateral */
+        .anuncio-lateral img, 
+        .anuncio-lateral .tenor-gif-embed {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover;
+        }
+
+        /* Área das fotos locais do contador (abaixo dos botões) */
+        .Galeria {
+            margin-top: 20px;
+            min-height: 150px;
+        }
+
+        .Galeria img {
+            display: none; /* Começam escondidas */
+            max-width: 150px;
+            border-radius: 8px;
+        }
+
+        /* 📱 Some com as laterais em telas pequenas (celular) */
+        @media (max-width: 1000px) {
+            .anuncio-lateral {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 📢 ANÚNCIO DA ESQUERDA (Exemplo com GIF animado de placeholder) -->
+    <div class="anuncio-lateral esquerda">
+        <div class="tenor-gif-embed" data-postid="3430738777965991652" data-share-method="host" data-aspect-ratio="0.564257" data-width="100%">
+            <a href="https://tenor.com/view/oreidoscortsofc-curifeo-papeada-ai-meme-tiktok-meme-gif-3430738777965991652">Oreidoscortsofc Curifeo GIF</a>from <a href="https://tenor.com/search/oreidoscortsofc-gifs">Oreidoscortsofc GIFs</a>
+        </div> 
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+
+    <!-- 📢 ANÚNCIO DA DIREITA (O seu coelho do Tenor fixado na lateral) -->
+    <div class="anuncio-lateral direita">
+        <div class="tenor-gif-embed" data-postid="2575377350962267938" data-share-method="host">
+            <a href="https://tenor.com/view/67-bunny-electricity-blue-eyes-gif-2575377350962267938">67 Bunny</a>
+        </div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+
+    <!-- 🎛️ BLOCO CENTRAL DO CONTADOR -->
+    <main class="conteudo-principal">
+        <h1>Contador de clicks</h1>
+        <div id="numero">0</div>
+
+        <!-- Botões -->
+        <button onclick="alterarContador2(-1)">Diminuir</button>
+        <button onclick="ZerarContador()">Zerar</button>
+        <button onclick="alterarContador(1)">Aumentar</button>
+
+        <!-- Galeria de Imagens do Contador -->
+        <div class="Galeria">
+            <img src="images (1).jpeg" alt="beleza" id="bebe">
+            <img src="image2.jpeg" alt="Anjo" id="tungSahur">
+            <img src="download.jpeg" alt="naoGrita" id="naoGrita">
+        </div>
+    </main>
+
+    <!-- 🔊 Efeitos Sonoros -->
+    <audio id="meu-audio">
+        <source src="perfect-fart_Qosxm1J.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <audio id="meu-audio2">
+        <source src="deltarune-explosion.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <audio id="meu-audio3">
+        <source src="volibear-morrendo-mp3cut.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <!-- 📜 LÓGICA JAVASCRIPT -->
+    <script>
+        let contador = 0;
+
+        const elementoNumero = document.getElementById('numero');
+        const audio = document.getElementById('meu-audio');
+        const audio2 = document.getElementById('meu-audio2');
+        const audio3 = document.getElementById('meu-audio3');
+
+        // Mapeamento correto das imagens locais do seu HTML
+        const image = document.getElementById('tungSahur'); // Imagem 1
+        const image2 = document.getElementById('bebe');      // Imagem 2
+        const image3 = document.getElementById('naoGrita'); // imagem 3
+
+        function TocarSom() {
+            audio.currentTime = 0; 
+            audio.play();
+        }
+
+        function TocarSom2() {
+            audio2.currentTime = 0; 
+            audio2.play();
+        }
+        function TocarSom3() {
+            audio3.currentTime = 0;
+            audio3.play();
+        }
+
+        function mostrarImagem1(){
+            image.style.display = "inline-block";
+            image2.style.display = "none";       
+            image3.style.display = "none";         
+        }
+
+        function mostrarImagem2(){
+            image.style.display = "none";         
+            image2.style.display = "inline-block"; 
+            image3.style.display = "none";       
+        }
+
+        function mostrarImagem3(){
+            image.style.display = "none";         
+            image2.style.display = "none"; 
+            image3.style.display = "inline-block";
+        }
+
+        function alterarContador(valor){
+            contador = contador + (valor);
+            atualizarTela();
+            TocarSom();
+            mostrarImagem1();
+        }
+
+        function alterarContador2(valor){
+            contador = contador + (valor);
+            atualizarTela();
+            TocarSom2();
+            mostrarImagem2();
+        }
+
+        function ZerarContador(){
+            contador = 0;
+            atualizarTela();
+            TocarSom3();
+            image.style.display = "none";
+            image2.style.display = "none";
+            image3.style.display = "inline-block"
+        }
+
+        function atualizarTela(){
+            elementoNumero.textContent = contador;
+
+            if (contador > 0){
+                elementoNumero.style.color = "green";
+            } 
+            else if (contador < 0){
+                elementoNumero.style.color = "red";
+            } 
+            else {
+                elementoNumero.style.color = "black";
+            } 
+        }
+    </script>
+
+</body>
+</html>
